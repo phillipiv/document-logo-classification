@@ -65,7 +65,8 @@ args = parser.parse_args()
 DOCUMENT_PATH = args.doc_path  # document path
 img = cv2.imread(DOCUMENT_PATH, 0)  # document image
 
-logo = get_company_logo(img)  # get matching logo
-logo_dir = args.doc_path  # logos directory
+logo_dir = args.logo_dir  # logos directory
+
+logo = get_company_logo(img, logo_dir)  # get matching logo
 
 print('Company logo:', logo)
