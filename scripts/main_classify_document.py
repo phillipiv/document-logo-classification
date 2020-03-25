@@ -7,9 +7,9 @@ import cv2
 import util
 
 
-def get_company_logo(img):
+def get_company_logo(img, logo_dir):
 
-    img = cv2.resize(img, (1650, 2330))  # resize image to standard format
+    # img = cv2.resize(img, (1650, 2330))  # resize image to standard format
     img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)  # reduce size to half, to speed computing
 
     # sift descriptors of input document
@@ -20,7 +20,6 @@ def get_company_logo(img):
     lengths = []
     img_paths = []
 
-    logo_dir = util.LOGOS_FROM_DOCS_DIR
     for img_path in os.listdir(logo_dir):
 
         TEMPLATE_PATH = os.path.join(os.path.join(logo_dir, img_path))  # path to image logo
@@ -51,11 +50,15 @@ def get_company_logo(img):
 
     j = np.argsort(lengths)[-1]  # index to best match logo
 
-    return img_paths[j].split('_logo')[0]
+    if lengths[j] > 5:
+        return img_paths[j].split('_')[0]
+    else:
+        return 'unknown'
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--doc_path', nargs='?')
+parser.add_argument('--logo_dir', nargs='?')
 
 args = parser.parse_args()
 
@@ -63,5 +66,6 @@ DOCUMENT_PATH = args.doc_path  # document path
 img = cv2.imread(DOCUMENT_PATH, 0)  # document image
 
 logo = get_company_logo(img)  # get matching logo
+logo_dir = args.doc_path  # logos directory
 
 print('Company logo:', logo)
