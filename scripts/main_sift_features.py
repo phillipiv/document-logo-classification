@@ -10,7 +10,8 @@ import util
 
 print_times = False
 
-doc_dir = util.DOCUMENTS_DIR
+# doc_dir = util.DOCUMENTS_DIR
+doc_dir = '../data/document_other'
 for doc_path in os.listdir(doc_dir):
 
     company = doc_path.split('.')[0]
@@ -30,7 +31,8 @@ for doc_path in os.listdir(doc_dir):
     kps = []
 
     tic_ = time.time()
-    logo_dir = util.LOGOS_FROM_DOCS_DIR
+    # logo_dir = util.LOGOS_V2_DIR
+    logo_dir = os.path.join('..', 'data', 'logos_v3')
     for img_path in os.listdir(logo_dir):
         if print_times:
             print('')
@@ -95,35 +97,5 @@ for doc_path in os.listdir(doc_dir):
         print(company, img_paths[j], lengths[j])
 
     j = np.argsort(lengths)[-1]
-    if lengths[j] > 0:
-        try:
-            kp1, kp2 = kps[j]
-            src_pts = np.float32([kp1[m.queryIdx].pt for m in goods[j]]).reshape(-1, 1, 2)
-            dst_pts = np.float32([kp2[m.trainIdx].pt for m in goods[j]]).reshape(-1, 1, 2)
-
-            M, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
-            matchesMask = mask.ravel().tolist()
-
-            h, w = imgs[j].shape
-            pts = np.float32([[0, 0], [0, h - 1], [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
-            dst = cv2.perspectiveTransform(pts, M)
-
-            img2 = cv2.polylines(img2, [np.int32(dst)], True, 255, 3, cv2.LINE_AA)
-
-            draw_params = dict(matchColor=(0, 255, 0),  # draw matches in green color
-                               singlePointColor=None,
-                               matchesMask=matchesMask,  # draw only inliers
-                               flags=2)
-
-            img3 = cv2.drawMatches(imgs[j], kp1, img2, kp2, goods[j], None, **draw_params)
-
-            plt.figure()
-            plt.imshow(img3)
-            plt.savefig(os.path.join('.', doc_path.replace('jpg', 'png')))
-            # plt.show()
-
-        except Exception:
-            pass
-
 
     print('')
