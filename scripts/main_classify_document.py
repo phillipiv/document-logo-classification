@@ -4,8 +4,6 @@ import argparse
 import numpy as np
 import cv2
 
-import util
-
 
 def get_company_logo(img, logo_dir):
 
@@ -48,9 +46,14 @@ def get_company_logo(img, logo_dir):
         img_paths.append(img_path)
         lengths.append(len(good))
 
+    '''
+    for j in np.argsort(lengths)[-5:]:
+        print(img_paths[j], lengths[j])
+    '''
+
     j = np.argsort(lengths)[-1]  # index to best match logo
 
-    if lengths[j] > 5:
+    if lengths[j] > 10:
         return img_paths[j].split('_')[0]
     else:
         return 'unknown'
