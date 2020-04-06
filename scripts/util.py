@@ -1,11 +1,8 @@
-import os
 
+def preprocess_document(document):
 
-#  constants
+    w, h, _ = document.shape
 
-DATA_DIR = os.path.join('..', 'data')
+    return document[:int(h / 3), :, :]
 
-LOGOS_DIR = os.path.join(DATA_DIR, 'logos')
-LOGOS_V2_DIR = os.path.join(DATA_DIR, 'logos_v2')
-DOCUMENTS_DIR = os.path.join(DATA_DIR, 'documents')
 
