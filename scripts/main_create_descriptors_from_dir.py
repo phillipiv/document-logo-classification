@@ -6,15 +6,17 @@ import cv2
 
 from util_feature_extractor import sift_features, surf_features, orb_features, brief_features
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--logos_dir', nargs='?', default='../data/logos_v2')
+parser.add_argument('--descriptors', nargs='?', default='../features/logos_descriptors.joblib')
 
 args = parser.parse_args()
 
 DATA_DIR = os.path.join('..', 'data')
-FEATURES_DIR = os.path.join('..', 'features')
 
 logos_dir = args.logos_dir
+features_path = args.descriptors
 
 logos_descriptors = {}
 for logo_path in os.listdir(logos_dir):
@@ -32,5 +34,4 @@ for logo_path in os.listdir(logos_dir):
 
     logos_descriptors[logo_path] = temp_descriptors
 
-filename = os.path.join(FEATURES_DIR, 'logos_descriptors.joblib')
-joblib.dump(logos_descriptors, filename)
+joblib.dump(logos_descriptors, features_path)
