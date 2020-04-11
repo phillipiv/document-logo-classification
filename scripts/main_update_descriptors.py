@@ -38,6 +38,6 @@ if logos_dir is not None:
             temp_descriptors[f.__name__] = {'keypoints': keypoints_list,
                                             'descriptors': descriptors}
 
-        logos_features[logo_path] = temp_descriptors
+        logos_features[logo_path_] = temp_descriptors
 
 joblib.dump(logos_features, logos_features_path)
