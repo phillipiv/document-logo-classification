@@ -49,7 +49,7 @@ logos_features = load_descriptors(logos_features_path)
 
 doc = cv2.imread(doc_path)
 
-doc = preprocess_document(doc)
+# doc = preprocess_document(doc)
 
 logo = get_company_logo(doc, logos_features)
 
