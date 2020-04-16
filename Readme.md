@@ -30,3 +30,7 @@ Example execution:
 The execution will return the most similar logo in the logo directory. If no similar logo is found the program will return _'unknown'_.  
 
 **IMPORTANT:** Input document must be completely vertically alligned.
+
+## Disclaimer
+
+This project was done in cooperation with the company MeetPlace GmbH.
