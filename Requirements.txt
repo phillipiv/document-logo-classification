@@ -6,4 +6,4 @@ opencv-contrib-python==3.4.2.16
 pyparsing==2.4.6
 python-dateutil==2.8.1
 six==1.14.0
-joblib
+joblib==0.14.1
